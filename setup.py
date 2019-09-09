@@ -22,6 +22,7 @@ setup(
         "Topic :: Internet :: WWW/HTTP",
     ],
     author='Anders Borud',
-    url='https://github.com/sesam-community/',
-    packages=find_packages()
+    url='https://github.com/sesam-community/sesamutils',
+    packages=find_packages(),
+    install_requires=['pytest']
 )
