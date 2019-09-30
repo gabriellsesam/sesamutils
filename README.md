@@ -83,12 +83,20 @@ ncalls tottime  percall  cumtime  percall filename:lineno(function)
 from sesamutils import sesam_logger
 
 logger = sesam_logger('<name of your module or logger>')
+```
 
-# User can provide environment variable "LOG_LEVEL" with valid values else log level will be 'INFO' by default.
-# While logging to screen, timestamp is set to false by default, since sesam-node has it's own. 
-# However if you want to make it enable, then you just need to create instance like this:  
-      logger = sesam_logger('<name of your module or logger>', timestamp=True)     
+Default log level is 'INFO'. To set a different level, you need to provide the environment variable 'LOG_LEVEL'.
+Since the microservice log view in the Sesam portal gets it's own timestamps directly from docker, this logger does not print timestamps by default.
+However if you want to log timestamps regardless, you can enable timestamps like this:
 
+```python
+logger = sesam_logger('<name of your module or logger>', timestamp=True)
+```
+
+If your app is using Flask and cherrypy, you can enable request logging by sending the app instance to `sesam_logger` like this:
+
+```python
+logger = sesam_logger('<name of your module or logger>', app=<Flask app instance>)
 ```
 
 ### Installation
