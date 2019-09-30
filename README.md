@@ -99,6 +99,27 @@ If your app is using Flask and cherrypy, you can enable request logging by sendi
 logger = sesam_logger('<name of your module or logger>', app=<Flask app instance>)
 ```
 
+**Serve Flask app**
+
+When writing microservices using [Flask](), we don't want to use the built-in development web server as this among other things doesn't set content-length or support chunked encoding (streams).
+To mitigate this we use cherrypy to serve our Flask microservices. To simplify this task, you can use our `serve` function:
+
+```python
+...
+from sesamutils.flask import serve
+
+app = Flask(__name__)
+
+...
+
+if __name__ == "__main__":
+    serve(app)
+```
+To define another port than the default (5000), you can do:
+```python
+    serve(app, port=<port>)
+```
+
 ### Installation
 
 ```python
