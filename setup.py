@@ -24,5 +24,5 @@ setup(
     author='Anders Borud',
     url='https://github.com/sesam-community/',
     packages=find_packages(),
-    install_requires=['pytest', 'testfixtures', 'paste']
+    install_requires=['pytest', 'testfixtures', 'paste', 'CherryPy==18.2.0']
 )
