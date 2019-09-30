@@ -1,8 +1,9 @@
 import logging
 import os
+from paste.translogger import TransLogger
 
 
-def sesam_logger(logger_name, timestamp=False):
+def sesam_logger(logger_name, timestamp=False, app=None):
     if logger_name is None or logger_name is '':
         raise ValueError('Please provide the valid logger name.')
     logger = logging.getLogger(logger_name)
@@ -16,6 +17,14 @@ def sesam_logger(logger_name, timestamp=False):
         logger.warning("Unsupported value or no LOG_LEVEL provided. Hence, setting default log level to INFO.")
         level = logging.INFO
     logger.setLevel(level)
+
+    if app:
+        wsgi_log_format_string = ('"%(REQUEST_METHOD)s %(REQUEST_URI)s %(HTTP_VERSION)s" '
+                                  '%(status)s %(bytes)s')
+
+        app.wsgi_app = TransLogger(app.wsgi_app, logger_name=logger.name, format=wsgi_log_format_string,
+                                   setup_console_handler=False, set_logger_level=logger.level)
+
     return logger
 
 
