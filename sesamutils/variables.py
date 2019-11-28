@@ -11,7 +11,7 @@ class VariablesConfig(object):
 
         for env_var in required_env_vars:
             value = os.getenv(env_var)
-            if not value:
+            if value is None:
                 self.missing_env_vars.append(env_var)
             setattr(self, env_var, value)
 
